@@ -4,17 +4,12 @@ class MyCalendarThree:
         self.bookings = {}
 
     def book(self, start: int, end: int) -> int:
-        if start in self.bookings:
-            self.bookings[start] += 1
-        else:
-            self.bookings[start] = 1
-        if end in self.bookings:
-            self.bookings[end] += -1
-        else:
-            self.bookings[end] = -1
+        
+        self.bookings[start] = 1 + self.bookings.get(start, 0)
+        self.bookings[end] = -1 + self.bookings.get(end, 0)
 
-        cnt = 0
-        res = 0
+        cnt, res = 0, 0
+
         for b in sorted(self.bookings.keys()):
             cnt += self.bookings[b]
             res = max(cnt, res)
